@@ -1,0 +1,30 @@
+
+LAYOUT ( TEXT="Barcode Test" )
+GRID
+{
+[acc   ][can   ]
+[sc1   ][sc2   ]
+[wc              ]
+[                ]
+[                ]
+[                ]
+[                ]
+[                ]
+
+[results         ]
+[img             ]
+[                ]
+[                ]
+[                ]
+[                ]
+}
+END -- GRID
+
+ATTRIBUTES
+BUTTON acc : accept;
+BUTTON can : cancel;
+BUTTON sc1 : scanner;
+BUTTON sc2 : scanner2;
+WEBCOMPONENT wc = FORMONLY.l_wc, SCROLLBARS=NONE, COMPONENTTYPE="quagga";
+EDIT results = FORMONLY.results, STYLE="big";
+IMAGE img = FORMONLY.img;

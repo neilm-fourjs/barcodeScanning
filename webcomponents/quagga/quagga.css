@@ -1,0 +1,41 @@
+body {
+	padding: 50px;
+	font: 14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #777;
+	font-weight: 300;
+}
+
+section {
+	width: 320px;
+	//float: right;
+	padding-bottom: 50px;
+}
+
+select {
+	float: right;
+}
+input {
+	float: right;
+}
+
+#result_strip {
+	margin: 10px 0;
+	border-top: 1px solid #EEE;
+	border-bottom: 1px solid #EEE;
+	padding: 10px 0;
+}
+
+#interactive.viewport {
+	position: relative;
+}
+
+#interactive.viewport > canvas, #interactive.viewport > video {
+	max-width: 100%;
+	width: 100%;
+}
+
+canvas.drawing, canvas.drawingBuffer {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
