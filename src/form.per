@@ -2,29 +2,37 @@
 LAYOUT ( TEXT="Barcode Test" )
 GRID
 {
-[acc   ][can   ]
-[sc1   ][sc2   ]
+ [acc   :can   ]
+ [sc1   :sc2   ]
 [wc              ]
 [                ]
 [                ]
 [                ]
-[                ]
-[                ]
-
+["Qty:":f001     ]
+------------------
 [results         ]
-[img             ]
-[                ]
-[                ]
-[                ]
-[                ]
+<T itms           >
+ [a001      |a002]
+ [a001      |a002]
+ [a001      |a002]
+ [a001      |a002]
+ [a001      |a002]
 }
 END -- GRID
 
 ATTRIBUTES
-BUTTON acc : accept;
-BUTTON can : cancel;
+BUTTON acc : accept, HIDDEN;
+BUTTON can : cancel, HIDDEN;
 BUTTON sc1 : scanner;
 BUTTON sc2 : scanner2;
-WEBCOMPONENT wc = FORMONLY.l_wc, SCROLLBARS=NONE, COMPONENTTYPE="quagga";
+WEBCOMPONENT wc = FORMONLY.l_wc, SCROLLBARS=NONE, COMPONENTTYPE="quagga", WIDTH=325 PIXELS, HEIGHT=245 PIXELS, SIZEPOLICY=FIXED;
+BUTTONEDIT f001 = FORMONLY.l_qty, KEYBOARDHINT=NUMBER, ACTION=accept;
 EDIT results = FORMONLY.results, STYLE="big";
-IMAGE img = FORMONLY.img;
+
+TABLE itms : itms, STYLE="tab";
+a001 = FORMONLY.code, TITLE="Code";
+a002 = FORMONLY.qty, TITLE="Qty";
+
+INSTRUCTIONS
+SCREEN RECORD scrarr (FORMONLY.code,  FORMONLY.qty )
+

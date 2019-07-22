@@ -3,12 +3,17 @@ body {
 	font: 14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: #777;
 	font-weight: 300;
+	min-height: 240px;
 }
 
 section {
 	width: 320px;
 	//float: right;
 	padding-bottom: 50px;
+}
+
+.controls {
+	background-color: #eeeeee;
 }
 
 select {

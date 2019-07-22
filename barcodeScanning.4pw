@@ -74,6 +74,14 @@
       <Directory description="Configuration Files" label="Config" recursive="false" sourceDirectory="$(ProjectDir)/config"/>
       <Directory description="Web Components" destinationDirectory="$(RootDir)/webcomponents" label="Webcomponents" sourceDirectory="$(ProjectDir)/webcomponents"/>
     </Package>
+    <Package binaryName="BarCodeScanning320" dependencies="400358049,1309417928,362164715,1472269436" id="1634853400" label="BarCodeScanning320" platform="Genero Application Server">
+      <DynamicProperty name="packageId" value="barcodescanner"/>
+      <DynamicProperty name="packageLabel" value="barcodescanner"/>
+      <Directory excludedFiles="Test.42r" includedFiles="*.42?" label="Binaries" sourceDirectory="$(ProjectDir)/bin"/>
+      <Directory label="Config" sourceDirectory="$(ProjectDir)/config"/>
+      <Directory destinationDirectory="$(RootDir)/webcomponents" label="Webcomponents" sourceDirectory="$(ProjectDir)/webcomponents"/>
+      <Directory includedFiles="*.xcf" label="xcf" recursive="false" sourceDirectory="$(ProjectDir)/gas"/>
+    </Package>
   </Group>
   <Group environment="value:FGLIMAGAEPATH=../pics,filelist:FGLPROFILE=$(ProjectDir)/config/fglprofile,dirlist:DBPATH=$(ProjectDir)/database;$(DBPATH)" id="10414220" label="Project" language="Genero">
     <Application binaryName="barcode" dependencies="159917928,212784684,362164715,455109296" environment="dirlist:FGLIMAGEPATH=$(ProjectDir)/images;$(FGLDIR)/lib/image2font.txt;$(ProjectDir)/webcomponents;$(FGLIMAGEPATH)" id="400358049" label="barcode">
@@ -84,6 +92,9 @@
       <File filePath="config/default.4ad"/>
       <File filePath="config/default.4st"/>
       <File filePath="config/fglprofile"/>
+    </Library>
+    <Library binaryName="gas" id="1472269436" label="gas">
+      <File filePath="gas/barcodes.xcf"/>
     </Library>
     <Library binaryName="wc" id="1309417928" label="wc">
       <File filePath="webcomponents/quagga/genero.js"/>

@@ -4,6 +4,11 @@ IMPORT FGL fgldialog
 
 MAIN
   DEFINE l_wc, l_permission, l_result STRING
+	DEFINE l_qty INT
+	DEFINE l_arr DYNAMIC ARRAY OF RECORD
+		code STRING,
+		qty INT
+	END RECORD
 
   IF ui.Interface.getFrontEndName() = "GMA" THEN
     LET l_permission = "android.permission.CAMERA"
@@ -17,30 +22,53 @@ MAIN
   OPEN FORM f FROM "form"
   DISPLAY FORM f
 
-  INPUT BY NAME l_wc ATTRIBUTES(UNBUFFERED)
-    BEFORE INPUT
-      IF ui.Interface.getFrontEndName() != "GMA" THEN
-        CALL DIALOG.setActionActive("scanner", FALSE)
-        CALL DIALOG.setActionActive("scanner2", FALSE)
-      END IF
+	DIALOG  ATTRIBUTES(UNBUFFERED)
+		INPUT BY NAME l_wc, l_qty
+			BEFORE INPUT
+				IF ui.Interface.getFrontEndName() != "GMA" THEN
+					CALL DIALOG.setActionActive("scanner", FALSE)
+					CALL DIALOG.setActionActive("scanner2", FALSE)
+					CALL ui.window.getCurrent().getForm().setElementHidden("scanner", TRUE)
+					CALL ui.window.getCurrent().getForm().setElementHidden("scanner2", TRUE)
+				END IF
 
-    ON CHANGE l_wc
-      DISPLAY "Changed:", l_wc
-      DISPLAY SFMT("Change: %1", l_wc) TO results
+			ON CHANGE l_wc
+				DISPLAY "Changed:", l_wc
+				DISPLAY SFMT("Change: %1", l_wc) TO results
 
-    ON ACTION scanned
-      DISPLAY "Scanned:", l_wc
-      DISPLAY SFMT("Scanned: %1", l_wc) TO results
+			AFTER FIELD l_qty
+				DISPLAY "After Field qty"
+				NEXT FIELD l_wc
 
-    ON ACTION scanner
-      CALL scanner()
+			ON ACTION ACCEPT
+				DISPLAY "accept"
+				IF l_qty IS NOT NULL AND l_qty > 0 AND l_result IS NOT NULL THEN
+					LET l_arr[ l_arr.getLength() + 1].code = l_result
+					LET l_arr[ l_arr.getLength() ].qty = l_qty
+					LET l_result = NULL
+					LET l_qty = 0
+				END IF
+				NEXT FIELD l_wc
 
-    ON ACTION scanner2
-      CALL scanner2()
+		END INPUT
+		DISPLAY ARRAY l_arr TO scrarr.*
+		END DISPLAY
 
-    ON ACTION close
-      EXIT INPUT
-  END INPUT
+		ON ACTION scanned
+			DISPLAY "Scanned:", l_wc
+			LET l_result = l_wc
+			DISPLAY SFMT("Scanned: %1", l_wc) TO results
+			NEXT FIELD l_qty
+
+		ON ACTION scanner
+			CALL scanner()
+
+		ON ACTION scanner2
+			CALL scanner2()
+
+		ON ACTION close
+			EXIT DIALOG
+	END DIALOG
 
 END MAIN
 ----------------------------------------------------------------------------------------------------
